@@ -4,224 +4,368 @@
 <meta charset="UTF-8">
 <title>Night Surprise for Christeena</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;600&display=swap');
-
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  min-height:100vh;
+  height:100vh;
   background:radial-gradient(circle at top,#0b1437,#02030a);
   font-family:'Playfair Display', serif;
   overflow:hidden;
   text-align:center;
   color:#ffe3f0;
-  position:relative;
 }
-
-/* Stars */
-.star {
-  position: fixed;
-  width: 2px;
-  height: 2px;
-  background: #fff;
-  border-radius: 50%;
-  opacity: 0.8;
-  pointer-events: none;
-  box-shadow: 0 0 6px #fff;
-  animation: twinkle 2s infinite alternate;
-  z-index:0;
-}
-@keyframes twinkle {
-  0% { opacity: 0.3; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1.2); }
-}
-
-/* Top section */
-.top{
-  padding-top:80px; 
-  position:relative; 
-  z-index:2;
-}
-h1, .name {letter-spacing:0.5px; word-spacing:4px; white-space: pre-wrap;}
-h1{font-size:28px; line-height:1.4; min-height:72px; text-shadow:0 0 18px rgba(255,140,190,.7);}
-.name{font-family:'Great Vibes', cursive; font-size:44px; color:#ffd6ec; text-shadow:0 0 12px #ff99c0,0 0 25px #ff66a3; margin-top:6px; opacity:0; transition:opacity 1.5s;}
-
-/* Moon */
-.moon{
-  position:fixed; top:20px; left:20px;
-  width:90px; height:90px;
-  border-radius:50%;
-  background:radial-gradient(circle,#fff,#ddd);
-  box-shadow:0 0 45px rgba(255,255,255,.6);
-  opacity:0; 
-  z-index:1;
-  animation: floatMoon 6s ease-in-out infinite;
-}
-@keyframes floatMoon {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(15px); }
-  100% { transform: translateY(0); }
-}
-
-/* Balloons */
-.balloons{position:relative;height:350px;margin-top:50px; z-index:2;}
+.stars{position:fixed; inset:0; z-index:0;}
+@keyframes twinkle{0%{opacity:0.5;}50%{opacity:1;}100%{opacity:0.5;}}
+.top{height:55vh; padding-top:100px; position:relative;}
+h1{font-size:28px; line-height:1.4; min-height:72px; position:relative; z-index:3; letter-spacing:0.05em; word-spacing:4px; text-shadow:0 0 18px rgba(255,140,190,.7);}
+.name{font-family:'Great Vibes', cursive; font-size:44px; color:#ffd6ec; text-shadow:0 0 12px #ff99c0,0 0 25px #ff66a3; margin-top:6px; opacity:0; transition:opacity 1.5s; z-index:3; letter-spacing:0.05em;}
+button{margin-top:18px;padding:14px 42px;font-size:16px;border:none;border-radius:40px;background:linear-gradient(135deg,#c2185b,#ff4f8b);color:#fff;cursor:pointer;box-shadow:0 12px 30px rgba(255,80,140,.45); z-index:3; position:relative;}
+.moon{position:fixed;top:20px;left:20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#fff,#ddd);box-shadow:0 0 45px rgba(255,255,255,.6);opacity:1;z-index:1;}
+.balloons{position:relative;height:350px;margin-top:50px; z-index:10;}
 .balloon-wrap{position:absolute;width:70px; cursor:pointer;}
-.balloon{
-  width:70px;height:100px;
-  border-radius:50% 50% 48% 48%; 
-  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.6),transparent);
-  box-shadow:inset -8px -14px 0 rgba(0,0,0,.1);
-  position:relative; transition:transform .3s; animation: float 4s ease-in-out infinite;
-}
+.balloon{width:70px;height:100px;border-radius:50% 50% 48% 48%; background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.6),transparent); box-shadow:inset -8px -14px 0 rgba(0,0,0,.1); position:relative; transition:transform .3s; animation: float 4s ease-in-out infinite;}
 .balloon:hover{transform:translateY(-5px);}
-.balloon-letter{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-size:32px; font-weight:bold; color:#fff; text-shadow:0 0 12px #ffb6c1,0 0 20px #ff8fb3; display:none;
-}
+.balloon-letter{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:32px; font-weight:bold; color:#fff; text-shadow:0 0 12px #ffb6c1, 0 0 20px #ff8fb3; display:none;}
 .balloon-string{position:absolute; width:2px; height:80px; background:#fff5; left:50%; top:100px; transform:translateX(-50%);}
-@keyframes float {0%{transform:translateY(0) translateX(0);}25%{transform:translateY(-5px) translateX(2px);}50%{transform:translateY(-10px) translateX(0);}75%{transform:translateY(-5px) translateX(-2px);}100%{transform:translateY(0) translateX(0);}}
-
-/* Cake */
-.cake {
-  font-size:120px; 
-  position:relative;   
-  margin:10px auto 0;    
-  z-index:2;
-  display:inline-block;
-}
-.candles{position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:32px;}
-.halo{position:absolute; border-radius:50%; pointer-events:none; box-shadow:0 0 15px rgba(255,200,255,0.7),0 0 25px rgba(255,150,200,0.5);}
-
-/* Hearts */
+@keyframes float {0%{transform:translateY(0) translateX(0);}25%{transform:translateY(-5px) translateX(2px);}50%{transform:translateY(-10px) translateX(0);}75%{transform:translateY(-5px) translateX(-2px);}100%{transform:translateY(0) translateX(0);} }
+.cake{font-size:160px; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); transition:transform 1s; z-index:5; display:none;}
+.candles{position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:32px;}
 .heart{position:fixed; top:-30px; font-size:22px; color:#ff7bbf; animation:fall linear forwards; z-index:2;}
 @keyframes fall{to{transform:translateY(110vh);opacity:0}}
-
-/* Confetti */
-.confetti{position:fixed;width:8px;height:8px; border-radius:50%; top:0; z-index:1000; pointer-events:none;}
-
-/* Fireworks */
-.firework{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;pointer-events:none;z-index:1000;box-shadow:0 0 8px #fff,0 0 12px #ff66a3,0 0 16px #ffb6c1;}
-
-/* Buttons */
-button{margin-top:18px;padding:14px 42px;font-size:16px;border:none;border-radius:40px;background:linear-gradient(135deg,#c2185b,#ff4f8b);color:#fff;cursor:pointer;box-shadow:0 12px 30px rgba(255,80,140,.45);z-index:3;position:relative;transition:0.3s;}
-button:hover{transform:scale(1.05);box-shadow:0 0 40px #ff66a3,0 0 60px #ff4f8b;}
-.hidden{display:none;}
+.fade-text{font-size:22px; line-height:1.6; opacity:0; margin-bottom:20px; text-shadow:0 0 15px rgba(255,180,220,.6);}
+#selfieBtn{
+  padding:14px 36px;
+  font-size:18px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff4f8b,#c2185b);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(255,80,140,.45);
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  display:none;
+}
+.emoji-big{font-size:80px; margin-bottom:10px; opacity:0; transform:scale(0); transition:all .5s;}
+.result-text{font-size:22px; line-height:1.6;}
+#cameraFlash{position:fixed; inset:0; background:white; opacity:0; pointer-events:none; z-index:10000;}
+.flash{animation:flashAnim .6s ease;}
+@keyframes flashAnim{0%{opacity:0;}20%{opacity:.95;}100%{opacity:0;}}
 </style>
 </head>
 <body>
 
+<div class="stars"></div>
+
 <div class="top">
   <div id="moon" class="moon"></div>
-  <h1 id="text">You have a night surprise, dear 💌</h1>
-  <div id="cakeBox" class="cake hidden">🎂</div>
+  <h1 id="text">You have something special 💌</h1>
   <div id="name" class="name">Christeena</div>
-  <button id="btn">Open My Heart</button>
+  <button id="btn">Touch Me</button>
   <div id="balloons" class="balloons hidden"></div>
-  <button id="giftBtn" class="hidden">Tap for Birthday Gift 🎁</button>
 </div>
 
-<audio id="pop" src="pop.mp3" preload="auto"></audio>
-<audio id="music" src="romantic.mp3" loop preload="auto"></audio>
+<div id="cakeBox" class="cake">🎂</div>
+
+<audio id="pop" src="pop.mp3"></audio>
+<audio id="music" src="romantic.mp3" loop></audio>
+
+<div id="finalContent" style="display:none; text-align:center; color:#ffe3f0; position:fixed; inset:0;">
+  <div id="messageBox" style="font-size:22px; line-height:1.6; margin-top:50px;"></div>
+</div>
+
+<div id="selfieResult" style="display:none; text-align:center; color:#ffe3f0; position:fixed; inset:0;"></div>
+
+<div id="cameraFlash"></div>
+<button id="selfieBtn">Take a Selfie 📸</button>
 
 <script>
-const btn=document.getElementById("btn"),
-      text=document.getElementById("text"),
-      balloons=document.getElementById("balloons"),
-      cakeBox=document.getElementById("cakeBox"),
-      moon=document.getElementById("moon"),
-      nameEl=document.getElementById("name"),
-      giftBtn=document.getElementById("giftBtn"),
-      pop=document.getElementById("pop"),
-      music=document.getElementById("music");
+const btn=document.getElementById("btn");
+const text=document.getElementById("text");
+const balloons=document.getElementById("balloons");
+const cakeBox=document.getElementById("cakeBox");
+const nameEl=document.getElementById("name");
+const pop=document.getElementById("pop");
+const music=document.getElementById("music");
+const finalContent=document.getElementById("finalContent");
+const messageBox=document.getElementById("messageBox");
+const selfieBtn=document.getElementById("selfieBtn");
+const selfieResult=document.getElementById("selfieResult");
 
-const message="HAPPY BIRTHDAY"; 
+const message="HAPPY BIRTHDAY";
 const colors=["#ff5f9e","#ffb703","#8ecae6","#9b5de5","#00f5d4"];
 let step=0;
 
-// Typewriter
-function typeWriter(txt,el,i){ el.innerText=""; let timer=setInterval(()=>{ el.innerText+=txt[i]; i++; if(i>=txt.length) clearInterval(timer); },80); }
+// Fullscreen
+btn.onclick = () => {
+  if(step===0){
+    if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}
+    text.innerText="Pop the balloons to reveal the letters!";
+    btn.style.display="none";
+    showBalloons();
+    step=1;
+  } else if(step===2){
+    cakeBox.style.display="block";
+    btn.innerText="Light the Candle";
+    btn.style.display="inline-block";
+    step=3;
+  } else if(step===3){
+    lightCandles();
+    btn.style.display="none";
+    nameEl.style.opacity=1;
+    startMusic();
+    startHearts();
+    step=4;
+    setTimeout(showMessageBox,5000);
+  }
+};
 
-// Balloon pop and show letters
+// Balloons
 function showBalloons(){
-  balloons.classList.remove("hidden"); balloons.innerHTML="";
-  const lettersArr = message.split(""); 
-  lettersArr.forEach((letter,i)=>{
-    const w=document.createElement("div"); w.className="balloon-wrap";
-    w.style.left = `${(i+1)/(lettersArr.length+1)*100}vw`;
-    w.style.top = `${120 + Math.random()*50}px`;
-    const b=document.createElement("div"); b.className="balloon"; b.style.background = colors[i%colors.length];
-    const span=document.createElement("span"); span.className="balloon-letter"; span.innerText=letter;
-    const stringEl=document.createElement("div"); stringEl.className="balloon-string"; b.appendChild(stringEl);
+  balloons.classList.remove("hidden");
+  balloons.innerHTML="";
+  for(let i=0;i<message.length;i++){
+    const w=document.createElement("div");
+    w.className="balloon-wrap";
+    w.style.left=(i*7+5)+"%";
+    w.style.top=(Math.random()*60+80)+"px";
+
+    const b=document.createElement("div");
+    b.className="balloon";
+    b.style.background=colors[i%colors.length];
+
+    const span=document.createElement("span");
+    span.className="balloon-letter";
+    span.innerText = message[i];
+
+    const stringEl=document.createElement("div");
+    stringEl.className="balloon-string";
+    b.appendChild(stringEl);
 
     b.onclick=()=>{
       pop.play();
-      const popAnim=b.animate([{transform:'scale(1)',opacity:1},{transform:'scale(1.5)',opacity:0}],{duration:400,easing:'ease-out'});
-      for(let p=0;p<6;p++){
-        const particle=document.createElement("div");
-        particle.style.position="absolute"; particle.style.width="6px"; particle.style.height="6px";
-        particle.style.borderRadius="50%"; particle.style.background=colors[Math.floor(Math.random()*colors.length)];
-        particle.style.left="50%"; particle.style.top="50%"; particle.style.transform="translate(-50%,-50%)";
-        b.appendChild(particle);
-        const angle=Math.random()*2*Math.PI; const distance=20+Math.random()*30;
-        const dx=Math.cos(angle)*distance; const dy=Math.sin(angle)*distance;
-        particle.animate([{transform:"translate(0,0)",opacity:1},{transform:`translate(${dx}px,${dy}px)`,opacity:0}],{duration:400,easing:"ease-out"});
-        setTimeout(()=>particle.remove(),400);
+      if(navigator.vibrate){navigator.vibrate(150);}
+      for(let j=0;j<12;j++){
+        const conf=document.createElement("div");
+        conf.style.position="absolute";
+        conf.style.width="8px";
+        conf.style.height="8px";
+        conf.style.borderRadius="50%";
+        conf.style.background=colors[Math.floor(Math.random()*colors.length)];
+        conf.style.left="30px";
+        conf.style.top="50px";
+        conf.style.pointerEvents="none";
+        b.appendChild(conf);
+        conf.animate(
+          [{transform:`translate(0,0)`, opacity:1},{transform:`translate(${Math.random()*100-50}px,${Math.random()*-100}px)`, opacity:0}],
+          {duration:1000+Math.random()*500}
+        );
+        setTimeout(()=>conf.remove(),1200);
       }
-      setTimeout(()=>{
-        span.style.display="block"; 
-        b.style.background="transparent"; 
-        b.style.boxShadow="none";
-        if([...document.querySelectorAll('.balloon-letter')].every(s=>s.style.display==='block')){
-          typeWriter("A candle-lit wish awaits you 🎂", text,0);
-          btn.innerText="Show the Cake"; 
-          btn.style.display="inline-block"; 
-          step=2;
-        }
-      },400);
+
+      const rect=b.getBoundingClientRect();
+      span.style.display="inline-block";
+      span.style.position="fixed";
+      span.style.left=rect.left+rect.width/2+"px";
+      span.style.top=rect.top+rect.height/2+"px";
+      span.style.transform="translate(-50%, -50%)";
+      document.body.appendChild(span);
+
+      b.style.opacity=0;
+      b.style.transform="scale(0)";
+      text.style.display="none";
+
+      if([...document.querySelectorAll('.balloon-letter')].every(s=>s.style.display==='inline-block')){
+        btn.style.display="inline-block";
+        btn.innerText="Show the Cake";
+        step=2;
+      }
     };
 
-    b.appendChild(span); w.appendChild(b); balloons.appendChild(w);
-  });
-}
-
-// Cake candles
-function lightCandles(){
-  cakeBox.classList.remove("hidden");
-  const oldCandles = cakeBox.querySelectorAll(".candles"); oldCandles.forEach(c => c.remove());
-  const c=document.createElement("div"); c.className="candles"; c.style.position="absolute"; c.style.top="-30px"; c.style.left="50%"; c.style.transform="translateX(-50%)"; c.innerHTML="🕯️ 🕯️ 🕯️"; cakeBox.appendChild(c);
-  setInterval(()=>{ Array.from(c.children).forEach(flame=>{ flame.style.transform=`scale(${0.9+Math.random()*0.2})`; flame.style.opacity=0.7+Math.random()*0.3; });},150);
-}
-
-// Hearts
-function startHearts(){ setInterval(()=>{ for(let i=0;i<5;i++){ const h=document.createElement("div"); h.className="heart"; h.innerText=Math.random()>0.5?"💖":"💞"; h.style.left=Math.random()*100+"vw"; h.style.animationDuration=(2+Math.random()*2)+"s"; document.body.appendChild(h); setTimeout(()=>h.remove(),7000); } },300); }
-
-// Music
-function startMusic(){ music.volume=0; music.play(); let v=0; const fade=setInterval(()=>{ if(v<0.6)v+=0.02,music.volume=v; else clearInterval(fade); },200); }
-
-// Confetti
-function launchConfetti(){ for(let i=0;i<100;i++){ const c=document.createElement("div"); c.className="confetti"; c.style.left=Math.random()*100+"vw"; c.style.background=colors[Math.floor(Math.random()*colors.length)]; document.body.appendChild(c); const anim=c.animate([{transform:`translateY(0) rotate(0deg)`,opacity:1},{transform:`translateY(100vh) rotate(${360*Math.random()}deg)`,opacity:0}],{duration:2000+Math.random()*2000,easing:"linear"}); anim.onfinish=()=>c.remove(); } }
-
-// Fireworks
-function launchFireworks(){ for(let i=0;i<6;i++){ const x=Math.random()*window.innerWidth*0.8+window.innerWidth*0.1; const y=Math.random()*window.innerHeight*0.5; for(let j=0;j<20;j++){ const f=document.createElement("div"); f.className="firework"; f.style.left=x+"px"; f.style.top=y+"px"; document.body.appendChild(f); const angle=Math.random()*2*Math.PI; const distance=Math.random()*80+40; const dx=Math.cos(angle)*distance; const dy=Math.sin(angle)*distance; f.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${dx}px,${dy}px)`,opacity:0}],{duration:1000+Math.random()*500,easing:'ease-out'}); setTimeout(()=>f.remove(),1500);} } }
-
-// Stars
-function createStars(count=150){ for(let i=0;i<count;i++){ const star=document.createElement("div"); star.className="star"; star.style.left=Math.random()*100+"vw"; star.style.top=Math.random()*100+"vh"; star.style.animationDuration=(1+Math.random()*2)+"s"; document.body.appendChild(star); } }
-createStars(150);
-
-// Main button
-btn.onclick=()=>{
-  if(step===0){ typeWriter("Pop the balloons to reveal the letters!", text,0); btn.style.display="none"; showBalloons(); step=1; }
-  else if(step===2){ moon.style.opacity=1; cakeBox.classList.remove("hidden"); btn.innerText="Light the Candles"; btn.style.display="inline-block"; step=3; }
-  else if(step===3){
-    lightCandles(); btn.style.display="none"; nameEl.style.opacity=1; startMusic(); startHearts(); launchConfetti(); launchFireworks();
-    let count=0; const fw=setInterval(()=>{ launchFireworks(); count++; if(count>=3) clearInterval(fw); },2000);
-    setTimeout(()=>{ giftBtn.classList.remove("hidden"); },2000);
+    b.appendChild(span);
+    w.appendChild(b);
+    balloons.appendChild(w);
   }
 }
 
-// Gift button
-giftBtn.onclick=()=>{ alert("Ayyedi mwole… Ath neriitte terratta.. 🎉"); giftBtn.style.display="none"; }
+// Candles + Fireworks
+function lightCandles(){
+  const c=document.createElement("div");
+  c.className="candles";
+  c.innerHTML="🕯️ 🕯️ 🕯️";
+  cakeBox.appendChild(c);
+  
+  // Candle flicker
+  setInterval(()=>{
+    Array.from(c.children).forEach(flame=>{
+      flame.style.transform=`scale(${0.8+Math.random()*0.4}) rotate(${Math.random()*10-5}deg)`;
+      flame.style.opacity=0.6+Math.random()*0.4;
+    });
+  },150);
 
+  // Fireworks
+  for(let i=0;i<5;i++){
+    setTimeout(()=>createFirework(), i*700);
+  }
+}
+
+function createFirework(){
+  const colors=["#ff5f9e","#ffb703","#8ecae6","#9b5de5","#00f5d4"];
+  const firework = document.createElement("div");
+  firework.style.position="fixed";
+  firework.style.left=(50 + Math.random()*20-10)+"vw";
+  firework.style.top=(50 + Math.random()*10-5)+"vh";
+  firework.style.width="10px";
+  firework.style.height="10px";
+  firework.style.borderRadius="50%";
+  firework.style.background="#fff";
+  firework.style.pointerEvents="none";
+  document.body.appendChild(firework);
+
+  for(let j=0;j<15;j++){
+    const dot=document.createElement("div");
+    dot.style.position="absolute";
+    dot.style.width="8px";
+    dot.style.height="8px";
+    dot.style.borderRadius="50%";
+    dot.style.background=colors[Math.floor(Math.random()*colors.length)];
+    dot.style.left="0px";
+    dot.style.top="0px";
+    firework.appendChild(dot);
+
+    const angle = Math.random()*2*Math.PI;
+    const distance = Math.random()*100 + 50;
+    dot.animate([{transform:'translate(0,0)', opacity:1},{transform:`translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`, opacity:0}], {duration:1000+Math.random()*500});
+    setTimeout(()=>dot.remove(),1500);
+  }
+
+  setTimeout(()=>firework.remove(),1600);
+}
+
+// Hearts
+function startHearts(){
+  setInterval(()=>{
+    for(let i=0;i<10;i++){
+      const h=document.createElement("div");
+      h.className="heart";
+      h.innerText=Math.random()>0.5?"💖":"💞";
+      h.style.left=Math.random()*100+"vw";
+      h.style.animationDuration=(2+Math.random()*2)+"s";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),7000);
+    }
+  },300);
+}
+
+// Music
+function startMusic(){
+  music.volume=0;
+  music.play();
+  let v=0;
+  const fade=setInterval(()=>{
+    if(v<0.6){v+=0.02;music.volume=v;}
+    else clearInterval(fade);
+  },200);
+}
+
+// Final Message
+function showMessageBox(){
+  document.querySelectorAll(".balloon-wrap, #cakeBox, #btn, #name, #text").forEach(e=>e.remove());
+  finalContent.style.display="block";
+
+  const lines=[
+    "The stars are watching,\nthe moon is smiling,\nand this night is special ✨",
+    "May your days be bright,\nyour smiles endless,\nand your heart always happy ✨"
+  ];
+
+  let index=0;
+  function typeLine(line){
+    let i=0;
+    function typeChar(){
+      if(i<line.length){
+        messageBox.innerHTML+=line[i]=='\n'?'<br>':line[i];
+        i++;
+        setTimeout(typeChar,50);
+      } else {
+        index++;
+        if(index<lines.length)setTimeout(()=>{messageBox.innerHTML+='<br>'; typeLine(lines[index]);},500);
+        else selfieBtn.style.display="inline-block";
+      }
+    }
+    typeChar();
+  }
+  typeLine(lines[index]);
+}
+
+// Selfie with monkey emojis + confetti
+selfieBtn.onclick = () => {
+  document.body.querySelectorAll("div, h1, button").forEach(e => {
+    if(e != selfieResult && e != cameraFlash && e != selfieBtn) e.style.display = "none";
+  });
+  selfieBtn.style.display="none";
+  selfieResult.style.display="block";
+
+  const flash = document.getElementById("cameraFlash");
+  flash.classList.add("flash");
+  setTimeout(()=>flash.classList.remove("flash"),600);
+
+  selfieResult.innerHTML = "";
+
+  const emojiDiv = document.createElement('div');
+  emojiDiv.className = 'emoji-big';
+  emojiDiv.innerText = '🐵 🐵';
+  selfieResult.appendChild(emojiDiv);
+  setTimeout(()=>{emojiDiv.style.opacity=1; emojiDiv.style.transform='scale(1)';},50);
+
+  const textP = document.createElement('p');
+  textP.className = 'result-text';
+  textP.innerHTML = 'Perfect selfie 😄<br>കൊരങ്ങൻ & കൊരങ്ങത്തി 😍';
+  selfieResult.appendChild(textP);
+
+  // Confetti
+  for(let i=0;i<40;i++){
+    const conf = document.createElement('div');
+    conf.style.position='fixed';
+    conf.style.width='12px';
+    conf.style.height='12px';
+    conf.style.borderRadius='50%';
+    conf.style.background=colors[Math.floor(Math.random()*colors.length)];
+    conf.style.left=(50 + Math.random()*40-20)+'vw';
+    conf.style.top=(50 + Math.random()*40-20)+'vh';
+    conf.style.pointerEvents='none';
+    document.body.appendChild(conf);
+
+    conf.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity:1 },
+      { transform: `translate(${Math.random()*300-150}px, ${Math.random()*-300}px) rotate(${Math.random()*720}deg)`, opacity:0 }
+    ],{
+      duration: 1500 + Math.random()*500,
+      easing:'ease-out'
+    });
+    setTimeout(()=>conf.remove(),1600);
+  }
+}
+
+// Stars
+const starsContainer = document.querySelector('.stars');
+for(let i=0;i<60;i++){
+  const star = document.createElement('div');
+  const size = Math.random()*2 + 1;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.position = 'absolute';
+  star.style.borderRadius = '50%';
+  star.style.background = '#fff';
+  star.style.top = Math.random()*100 + 'vh';
+  star.style.left = Math.random()*100 + 'vw';
+  star.style.opacity = Math.random()*0.8 + 0.2;
+  const duration = (Math.random()*3 + 2) + 's';
+  star.style.animation = `twinkle ${duration} infinite alternate`;
+  starsContainer.appendChild(star);
+}
 </script>
 </body>
 </html>
-
