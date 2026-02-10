@@ -33,7 +33,6 @@ button{margin-top:18px;padding:14px 42px;font-size:16px;border:none;border-radiu
 .candles{position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:32px;}
 .heart{position:fixed; top:-30px; font-size:22px; color:#ff7bbf; animation:fall linear forwards; z-index:2;}
 @keyframes fall{to{transform:translateY(110vh);opacity:0}}
-.fade-text{font-size:22px; line-height:1.6; opacity:0; margin-bottom:20px; text-shadow:0 0 15px rgba(255,180,220,.6);}
 #selfieBtn{
   padding:14px 36px;
   font-size:18px;
@@ -123,7 +122,7 @@ btn.onclick = () => {
   }
 };
 
-// Balloons
+// Balloon pop with confetti
 function showBalloons(){
   balloons.classList.remove("hidden");
   balloons.innerHTML="";
@@ -145,38 +144,43 @@ function showBalloons(){
     stringEl.className="balloon-string";
     b.appendChild(stringEl);
 
-    b.onclick=()=>{
+    b.onclick = () => {
       pop.play();
       if(navigator.vibrate){navigator.vibrate(150);}
-      for(let j=0;j<12;j++){
-        const conf=document.createElement("div");
-        conf.style.position="absolute";
+
+      const rect = b.getBoundingClientRect();
+      span.style.display = "inline-block";
+      span.style.position = "fixed";
+      span.style.left = rect.left + rect.width/2 + "px";
+      span.style.top = rect.top + rect.height/2 + "px";
+      span.style.transform = "translate(-50%, -50%)";
+      document.body.appendChild(span);
+
+      // Confetti burst
+      for(let j=0;j<30;j++){
+        const conf = document.createElement("div");
+        conf.style.position="fixed";
         conf.style.width="8px";
         conf.style.height="8px";
         conf.style.borderRadius="50%";
         conf.style.background=colors[Math.floor(Math.random()*colors.length)];
-        conf.style.left="30px";
-        conf.style.top="50px";
+        conf.style.left = rect.left + rect.width/2 + "px";
+        conf.style.top = rect.top + rect.height/2 + "px";
         conf.style.pointerEvents="none";
-        b.appendChild(conf);
-        conf.animate(
-          [{transform:`translate(0,0)`, opacity:1},{transform:`translate(${Math.random()*100-50}px,${Math.random()*-100}px)`, opacity:0}],
-          {duration:1000+Math.random()*500}
-        );
-        setTimeout(()=>conf.remove(),1200);
+        document.body.appendChild(conf);
+
+        const angle = Math.random()*2*Math.PI;
+        const distance = Math.random()*200 + 50;
+        conf.animate([
+          { transform: "translate(0,0) rotate(0deg)", opacity: 1 },
+          { transform: `translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
+        ], { duration:1200+Math.random()*500, easing:"ease-out"});
+        setTimeout(()=>conf.remove(),1500);
       }
 
-      const rect=b.getBoundingClientRect();
-      span.style.display="inline-block";
-      span.style.position="fixed";
-      span.style.left=rect.left+rect.width/2+"px";
-      span.style.top=rect.top+rect.height/2+"px";
-      span.style.transform="translate(-50%, -50%)";
-      document.body.appendChild(span);
-
-      b.style.opacity=0;
-      b.style.transform="scale(0)";
-      text.style.display="none";
+      b.style.opacity = 0;
+      b.style.transform = "scale(0)";
+      text.style.display = "none";
 
       if([...document.querySelectorAll('.balloon-letter')].every(s=>s.style.display==='inline-block')){
         btn.style.display="inline-block";
@@ -191,14 +195,13 @@ function showBalloons(){
   }
 }
 
-// Candles + Fireworks
+// Candles + fireworks
 function lightCandles(){
   const c=document.createElement("div");
   c.className="candles";
   c.innerHTML="🕯️ 🕯️ 🕯️";
   cakeBox.appendChild(c);
   
-  // Candle flicker
   setInterval(()=>{
     Array.from(c.children).forEach(flame=>{
       flame.style.transform=`scale(${0.8+Math.random()*0.4}) rotate(${Math.random()*10-5}deg)`;
@@ -207,41 +210,37 @@ function lightCandles(){
   },150);
 
   // Fireworks
-  for(let i=0;i<5;i++){
-    setTimeout(()=>createFirework(), i*700);
-  }
+  setInterval(()=>{createFirework();},500);
 }
 
 function createFirework(){
-  const colors=["#ff5f9e","#ffb703","#8ecae6","#9b5de5","#00f5d4"];
   const firework = document.createElement("div");
   firework.style.position="fixed";
-  firework.style.left=(50 + Math.random()*20-10)+"vw";
-  firework.style.top=(50 + Math.random()*10-5)+"vh";
-  firework.style.width="10px";
-  firework.style.height="10px";
+  firework.style.left=(30 + Math.random()*40)+"vw";
+  firework.style.top=(10 + Math.random()*40)+"vh";
+  firework.style.width="8px";
+  firework.style.height="8px";
   firework.style.borderRadius="50%";
   firework.style.background="#fff";
   firework.style.pointerEvents="none";
   document.body.appendChild(firework);
 
-  for(let j=0;j<15;j++){
+  for(let j=0;j<20;j++){
     const dot=document.createElement("div");
     dot.style.position="absolute";
-    dot.style.width="8px";
-    dot.style.height="8px";
+    dot.style.width="6px";
+    dot.style.height="6px";
     dot.style.borderRadius="50%";
-    dot.style.background=colors[Math.floor(Math.random()*colors.length)];
+    dot.style.background="#fff";
     dot.style.left="0px";
     dot.style.top="0px";
     firework.appendChild(dot);
 
     const angle = Math.random()*2*Math.PI;
-    const distance = Math.random()*100 + 50;
+    const distance = Math.random()*150 + 50;
     dot.animate([{transform:'translate(0,0)', opacity:1},{transform:`translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`, opacity:0}], {duration:1000+Math.random()*500});
     setTimeout(()=>dot.remove(),1500);
   }
-
   setTimeout(()=>firework.remove(),1600);
 }
 
@@ -351,7 +350,7 @@ selfieBtn.onclick = () => {
 
 // Stars
 const starsContainer = document.querySelector('.stars');
-for(let i=0;i<60;i++){
+for(let i=0;i<120;i++){
   const star = document.createElement('div');
   const size = Math.random()*2 + 1;
   star.style.width = size + 'px';
